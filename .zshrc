@@ -105,30 +105,3 @@ prompt_context() {
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$PATH:/home/dapi/.local/bin"
-export PATH="$PATH:/home/dapi/.config/yarn/global/node_modules/.bin"
-export PATH="$PATH:$HOME/anaconda3/bin"
-export NODE_ENV="development"
-export BABEL_ENV="development"
-export DISPLAY="172.27.192.1:0"
-export LIBGL_ALWAYS_INDIRECT=1
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/dapi/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/dapi/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/dapi/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/dapi/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-

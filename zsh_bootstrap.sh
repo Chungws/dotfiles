@@ -1,5 +1,18 @@
-# Install zsh
-sudo apt install zsh
+#!/bin/bash
+
+set -ex
+
+OS=$(uname -s)
+
+# Install zsh, lab
+if [ "$OS" = "Linux" ]; then
+    sudo apt install -y zsh
+    curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | sudo bash
+elif [ "$OS" = "Darwin" ]; then
+    brew install zsh lab
+else
+    echo "Not supported OS"
+fi
 
 # Install oh-my-zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

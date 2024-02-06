@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# lab mr create
+# GIT_USERNAME=$(git config --get user.name)
+GIT_USERNAME=dapiblue
+CURRENT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+REMOTE_DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2)
+git push --set-upstream origin $CURRENT_BRANCH
+
+if [ "$#" -gt 0 ]; then
+    EXTRA_ARGS="$@"
+fi
+
+lab mr new origin $REMOTE_DEFAULT_BRANCH --assignee $GIT_USERNAME --remove-source-branch $EXTRA_ARGS

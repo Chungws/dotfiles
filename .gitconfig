@@ -14,6 +14,7 @@
 [color "branch"]
     remote = yellow
 [alias]
+    s = status -s
     st = status
     ci = commit
     br = branch
@@ -21,10 +22,12 @@
     rb = rebase origin/master
     unstage = reset HEAD --
     last = log -1 HEAD
+    l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
     log1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     log2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
     meld = !~/git-meld.pl
     df = difftool
+    alias = "!git config --list | egrep '^alias.+' | sed -e 's/^alias\\.//' | sed -e 's/^[^=]*=/\\'$'\\033[31m&\\033[(B\\033[m/'"
 [user]
 	email = jungyh0528@gmail.com
 	name = WooSeong Chung
@@ -33,4 +36,8 @@
 [difftool]
     prompt = false
 [push]
-	default = matching
+	default = current
+[fetch]
+	prune = true
+[credential]
+	helper = manager-core

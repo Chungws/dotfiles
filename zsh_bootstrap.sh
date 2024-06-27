@@ -3,6 +3,7 @@
 set -ex
 
 OS=$(uname -s)
+ZSH_CUSTOM="~/.oh-my-zsh/custom"
 
 # Install zsh, lab, nvim, tmux
 if [ "$OS" = "Linux" ]; then
@@ -26,6 +27,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 # Install zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+# Install powerlevel10k for themes
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+
 # Overwrite .zshrc
 cp .zshrc ~/.zshrc
 
@@ -35,3 +39,6 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Overwrite .tmux.conf
 cp .tmux.conf ~/.tmux.conf
 # then open tmux session and source file .tmux.conf (C-b :source-file ~/.tmux.conf) next, install plugins (C-a shift i)
+
+# Source file .zshrc
+source ~/.zshrc

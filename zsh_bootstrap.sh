@@ -4,12 +4,12 @@ set -ex
 
 OS=$(uname -s)
 
-# Install zsh, lab
+# Install zsh, lab, nvim, tmux
 if [ "$OS" = "Linux" ]; then
-    sudo apt install -y zsh
+    sudo apt install -y zsh nvim tmux
     curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | sudo bash
 elif [ "$OS" = "Darwin" ]; then
-    brew install zsh lab
+    brew install zsh lab nvim tmux
 else
     echo "Not supported OS"
 fi
@@ -28,3 +28,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 # Overwrite .zshrc
 cp .zshrc ~/.zshrc
+
+# Install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# Overwrite .tmux.conf
+cp .tmux.conf ~/.tmux.conf
+# then open tmux session and source file .tmux.conf (C-b :source-file ~/.tmux.conf) next, install plugins (C-a shift i)

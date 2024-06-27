@@ -29,6 +29,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 # Install powerlevel10k for themes
 git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+# TODO: create .p10k config file then include repo for without configure
 
 # Overwrite .zshrc
 cp .zshrc ~/.zshrc

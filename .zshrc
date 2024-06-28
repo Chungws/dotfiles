@@ -86,9 +86,9 @@ plugins=(git
 source $ZSH/oh-my-zsh.sh
 
 prompt_context() {
-    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then 
-      prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-    fi
+#     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then 
+#       prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+#     fi
 }
 
 # User configuration

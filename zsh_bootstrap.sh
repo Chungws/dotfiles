@@ -7,10 +7,10 @@ ZSH_CUSTOM="~/.oh-my-zsh/custom"
 
 # Install zsh, lab, nvim, tmux
 if [ "$OS" = "Linux" ]; then
-    sudo apt install -y zsh nvim tmux
+    sudo apt install -y zsh nvim tmux ripgrep fzf
     curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | sudo bash
 elif [ "$OS" = "Darwin" ]; then
-    brew install zsh lab nvim tmux
+    brew install zsh lab nvim tmux ripgrep fzf
 else
     echo "Not supported OS"
 fi

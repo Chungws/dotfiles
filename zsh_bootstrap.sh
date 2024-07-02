@@ -43,6 +43,17 @@ mv ~/.tmux.conf ~/.tmux.conf.back
 cp .tmux.conf ~/.tmux.conf
 # then open tmux session and source file .tmux.conf (C-b :source-file ~/.tmux.conf) next, install plugins (C-a shift i)
 
+# Neovim setup
+mv ~/.config/nvim{,.bak}
+mv ~/.local/share/nvim{,.bak}
+mv ~/.local/state/nvim{,.bak}
+mv ~/.cache/nvim{,.bak}
+
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+
+rm -rf ~/.config/nvim/.git
+cp vim-tmux-navigator.lua ~/.config/nvim/lua/plugins/vim-tmux-navigator.lua
+
 # fzf setup
 git clone https://github.com/junegunn/fzf-git.sh.git ~/
 

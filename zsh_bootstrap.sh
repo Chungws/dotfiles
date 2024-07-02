@@ -15,6 +15,8 @@ else
 	echo "Not supported OS"
 fi
 
+mv ~/.config/ ~/.config.back
+
 # Install oh-my-zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -37,6 +39,7 @@ cp .p10k.zsh ~/.p10k.zsh
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Overwrite .tmux.conf
+mv ~/.tmux.conf ~/.tmux.conf.back
 cp .tmux.conf ~/.tmux.conf
 # then open tmux session and source file .tmux.conf (C-b :source-file ~/.tmux.conf) next, install plugins (C-a shift i)
 
@@ -54,6 +57,7 @@ bat cache --build
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # Overwrite .zshrc
+mv ~/.zshrc ~/.zshrc.back
 cp .zshrc ~/.zshrc
 
 # Source file .zshrc

@@ -55,7 +55,7 @@ rm -rf ~/.config/nvim/.git
 cp vim-tmux-navigator.lua ~/.config/nvim/lua/plugins/vim-tmux-navigator.lua
 
 # fzf setup
-git clone https://github.com/junegunn/fzf-git.sh.git ~/
+git clone https://github.com/junegunn/fzf-git.sh.git ~/fzf-git.sh
 
 # bat setup
 mkdir -p "$(bat --config-dir)/themes"

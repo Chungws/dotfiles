@@ -7,12 +7,12 @@ ZSH_CUSTOM="~/.oh-my-zsh/custom"
 
 # Install zsh, lab, nvim, tmux
 if [ "$OS" = "Linux" ]; then
-	sudo apt install -y zsh nvim tmux ripgrep fzf fd-find bat eza
-	curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | sudo bash
+  sudo apt install -y zsh nvim tmux ripgrep fzf fd-find bat eza
+  curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | sudo bash
 elif [ "$OS" = "Darwin" ]; then
-	brew install zsh lab nvim tmux ripgrep fzf fd bat eza tlrc lazygit
+  brew install zsh lab nvim tmux ripgrep fzf fd bat eza tlrc lazygit
 else
-	echo "Not supported OS"
+  echo "Not supported OS"
 fi
 
 mv ~/.config/ ~/.config.back
@@ -53,6 +53,7 @@ git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 rm -rf ~/.config/nvim/.git
 cp vim-tmux-navigator.lua ~/.config/nvim/lua/plugins/vim-tmux-navigator.lua
+cp neo-tree.lua ~/.config/nvim/lua/plugins/neo-tree.lua
 
 # fzf setup
 git clone https://github.com/junegunn/fzf-git.sh.git ~/fzf-git.sh

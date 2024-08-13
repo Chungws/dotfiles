@@ -286,8 +286,33 @@ _fzf_comprun() {
   esac
 }
 
+function git-open() {
+    local remote_url=$(git config --get remote.origin.url)
+
+    if [[ $remote_url == git@*:* ]]; then
+        local hostname=$(echo $remote_url | awk -F'[@:]' '{print $2}')
+        local repo_path=$(echo $remote_url | awk -F'[@:]' '{print $3}' | sed 's/.git$//')
+        local url="https://$hostname/$repo_path"
+    elif [[ $remote_url == http* || $remote_url == https* ]]; then
+        local url=$(echo $remote_url | sed 's/.git$//')
+    else
+        echo "Unknown URL format: $remote_url"
+        return 1
+    fi
+
+    if command -v xdg-open > /dev/null; then
+        xdg-open "$url"
+    elif command -v open > /dev/null; then
+        open "$url"
+    else
+        echo "No suitable command to open the URL in a browser found"
+    fi
+}
+alias goo="git-open"
+
 # BAT
 export BAT_THEME=tokyonight_night
+alias cat="bat"
 
 # EZA
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"

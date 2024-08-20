@@ -312,7 +312,7 @@ alias goo="git-open"
 
 # BAT
 export BAT_THEME=tokyonight_night
-alias cat="bat"
+alias cat="bat --paging=never"
 
 # EZA
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"

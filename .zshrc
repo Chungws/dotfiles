@@ -272,14 +272,14 @@ _fzf_compgen_path() {
 [[ ! -f ~/fzf-git.sh/fzf-git.sh ]] || source ~/fzf-git.sh/fzf-git.sh
 
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always {} | head -200'"
 
 _fzf_comprun() {
   local command=$1
   shift
 
   case "$command" in
-    cd)   fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    cd)   fzf --preview 'lsd --tree --color=always {} | head -200' "$@" ;;
     export|unset) fzf --preview "eval 'echo \$' {}"          "$@" ;;
     ssh)  fzf --preview 'dig {}'   "$@";;
     *)    fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
@@ -314,8 +314,8 @@ alias goo="git-open"
 export BAT_THEME=tokyonight_night
 alias cat="bat --paging=never"
 
-# EZA
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+# LSD
+alias ls="lsd"
 
 # zoxide
 eval "$(zoxide init zsh)"

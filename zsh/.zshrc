@@ -7,6 +7,8 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -119,6 +121,74 @@ alias zsource="source ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # This command is used a LOT both below and in daily life
 
+# Git related alias
+alias gcod='git checkout develop'
+alias gpod='git pull origin develop'
+alias gst='git status'
+alias gl='git log --graph'
+alias gfs='git flow feature start'
+
+source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NODE_ENV="development"
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/dotfiles/bin:$PATH"
+
+eval "$(direnv hook zsh)"
+export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="\vim"
+
+# FZF
+eval "$(fzf --zsh)"
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+_fzf_compgen_path() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+[[ ! -f ~/fzf-git.sh/fzf-git.sh ]] || source ~/fzf-git.sh/fzf-git.sh
+
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)   fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$' {}"          "$@" ;;
+    ssh)  fzf --preview 'dig {}'   "$@";;
+    *)    fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
+  esac
+}
+
+# BAT
+export BAT_THEME=tokyonight_night
+
+# EZA
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+
+# zoxide (disabled - conflicts with claude code cd)
+# eval "$(zoxide init zsh)"
+# alias cd="z"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+# kubectl
 source <(kubectl completion zsh)
 alias k=kubectl
 complete -F __start_kubectl k
@@ -234,92 +304,33 @@ alias kgcjwide='kgcj -o wide'
 alias kdcj='kubectl describe cronjob'
 alias kdelcj='kubectl delete cronjob'
 
-# Git related alias
-alias gcod='git checkout develop'
-alias gpod='git pull origin develop'
-alias gst='git status'
-alias gl='git log --graph'
-alias gfs='git flow feature start'
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/dapi/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:$PATH
+# Rust
+export PATH=$HOME/.cargo/bin:$PATH
+eval "$(opam env)"
 
-# Vim related alias
-alias vim='nvim'
-alias vi='nvim'
-alias oldvim='\vim'
+# Secrets (API keys etc. - not in repo)
+[[ -f ~/.secrets ]] && source ~/.secrets
 
-source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# CLAUDE CODE
+alias cc='claude'
+alias ccc='claude --continue'
+alias ccr='claude --resume'
+alias ccy='claude --dangerously-skip-permissions'
+alias ccyc='claude --dangerously-skip-permissions --continue'
+alias ccs='npx cc-safe .'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# OPENCLAW
+alias oc='openclaw'
+alias ocs='openclaw status'
+alias ocr='openclaw gateway restart'
 
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/dotfiles/bin:$PATH"
-
-# FZF
-eval "$(fzf --zsh)"
-
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-
-_fzf_compgen_path() {
-  fd --hidden --exclude .git . "$1"
-}
-
-_fzf_compgen_path() {
-  fd --type=d --hidden --exclude .git . "$1"
-}
-
-[[ ! -f ~/fzf-git.sh/fzf-git.sh ]] || source ~/fzf-git.sh/fzf-git.sh
-
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always {} | head -200'"
-
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)   fzf --preview 'lsd --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo \$' {}"          "$@" ;;
-    ssh)  fzf --preview 'dig {}'   "$@";;
-    *)    fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
-  esac
-}
-
-function git-open() {
-    local remote_url=$(git config --get remote.origin.url)
-
-    if [[ $remote_url == git@*:* ]]; then
-        local hostname=$(echo $remote_url | awk -F'[@:]' '{print $2}')
-        local repo_path=$(echo $remote_url | awk -F'[@:]' '{print $3}' | sed 's/.git$//')
-        local url="https://$hostname/$repo_path"
-    elif [[ $remote_url == http* || $remote_url == https* ]]; then
-        local url=$(echo $remote_url | sed 's/.git$//')
-    else
-        echo "Unknown URL format: $remote_url"
-        return 1
-    fi
-
-    if command -v xdg-open > /dev/null; then
-        xdg-open "$url"
-    elif command -v open > /dev/null; then
-        open "$url"
-    else
-        echo "No suitable command to open the URL in a browser found"
-    fi
-}
-alias goo="git-open"
-
-# BAT
-export BAT_THEME=tokyonight_night
-alias cat="bat --paging=never"
-
-# LSD
-alias ls="lsd"
-
-# zoxide
-eval "$(zoxide init zsh)"
-alias cd="z"
-
-export NODE_ENV="development"
-
+# OpenClaw Completion
+source "/Users/dapi/.openclaw/completions/openclaw.zsh"

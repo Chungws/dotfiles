@@ -40,5 +40,3 @@
 	default = current
 [fetch]
 	prune = true
-[credential]
-	helper = manager-core
